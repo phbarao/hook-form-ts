@@ -39,12 +39,15 @@ const App = (): ReactElement => {
       <div>
         <label htmlFor="age">Idade:</label>
         <input
-          ref={register({ required: true })}
+          ref={register({ required: true, min: 18 })}
           id="age"
           name="age"
           type="number"
         />
-        {errors.age && <small>Digite a idade</small>}
+        {errors.age?.type === 'required' && <small>Digite a idade</small>}
+        {errors.age?.type === 'min' && (
+          <small>Você deve ter pelo menos 18 anos.</small>
+        )}
       </div>
 
       <button type="submit">Salvar</button>
