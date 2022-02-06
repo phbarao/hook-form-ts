@@ -10,7 +10,7 @@ interface IProfile {
 const App = (): ReactElement => {
   const { register, handleSubmit, errors } = useForm<IProfile>();
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const onSubmit = handleSubmit((data) => console.log(JSON.stringify(data)));
 
   return (
     <form onSubmit={onSubmit}>
