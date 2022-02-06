@@ -1,26 +1,55 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { ReactElement } from 'react';
+import { useForm } from 'react-hook-form';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface IProfile {
+  firstName: string;
+  lastName: string;
+  age: number;
 }
+
+const App = (): ReactElement => {
+  const { register, handleSubmit, errors } = useForm<IProfile>();
+
+  const onSubmit = handleSubmit((data) => console.log(data));
+
+  return (
+    <form onSubmit={onSubmit}>
+      <div>
+        <label htmlFor="firstName">Nome:</label>
+        <input
+          ref={register({ required: true })}
+          id="firstName"
+          name="firstName"
+          type="text"
+        />
+        {errors.firstName && <small>Digite o nome.</small>}
+      </div>
+
+      <div>
+        <label htmlFor="lastName">Sobrenome:</label>
+        <input
+          ref={register({ required: true })}
+          id="lastName"
+          name="lastName"
+          type="text"
+        />
+        {errors.lastName && <small>Digite o sobrenome.</small>}
+      </div>
+
+      <div>
+        <label htmlFor="age">Idade:</label>
+        <input
+          ref={register({ required: true })}
+          id="age"
+          name="age"
+          type="number"
+        />
+        {errors.age && <small>Digite a idade</small>}
+      </div>
+
+      <button type="submit">Salvar</button>
+    </form>
+  );
+};
 
 export default App;
